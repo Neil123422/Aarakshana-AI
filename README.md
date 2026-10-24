@@ -1,4 +1,4 @@
-# Indian Paralegal Assistant
+# Aarakshana AI : Indian Paralegal Assistant
 
 Open-source, cross-platform AI paralegal assistant for Indian Law, focused on the new Bharatiya criminal statutes.
 

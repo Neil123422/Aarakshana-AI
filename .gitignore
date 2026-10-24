@@ -1,0 +1,7 @@
+backend/venv/
+backend/data/raw_laws/*.pdf
+backend/data/indian_law.db
+backend/.env
+frontend/node_modules/
+node_modules/
+.env

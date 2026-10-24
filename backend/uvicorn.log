@@ -1,0 +1,520 @@
+INFO:     Started server process [28800]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59507 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59513 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59513 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52678 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52678 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55627 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55627 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60227 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60227 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60645 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60645 - "POST /api/chat HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "D:\Aarakshana AI\backend\app\main.py", line 101, in chat
+    result = generate_paralegal_response(req.query, domain=req.domain)
+  File "D:\Aarakshana AI\backend\app\llm.py", line 46, in generate_paralegal_response
+    sections = search_laws(user_query, domain=domain, top_k=4)
+  File "D:\Aarakshana AI\backend\app\search.py", line 57, in search_laws
+    rows = conn.execute(sql, params).fetchall()
+           ~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: fts5: syntax error near "#"
+INFO:     127.0.0.1:60197 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60197 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64423 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64423 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64432 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64432 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64441 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64441 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62420 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62420 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59373 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59373 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52494 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52494 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50772 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50772 - "POST /api/chat HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "D:\Aarakshana AI\backend\app\main.py", line 101, in chat
+    result = generate_paralegal_response(req.query, domain=req.domain)
+  File "D:\Aarakshana AI\backend\app\llm.py", line 46, in generate_paralegal_response
+    sections = search_laws(user_query, domain=domain, top_k=4)
+  File "D:\Aarakshana AI\backend\app\search.py", line 57, in search_laws
+    rows = conn.execute(sql, params).fetchall()
+           ~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: fts5: syntax error near "#"
+INFO:     127.0.0.1:57783 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57783 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57782 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54721 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54721 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62361 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62361 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56802 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56802 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56805 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53024 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53024 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49160 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49160 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55774 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55774 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63572 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63572 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58075 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58075 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51560 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51560 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64909 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64909 - "POST /api/chat HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "D:\Aarakshana AI\backend\app\main.py", line 101, in chat
+    result = generate_paralegal_response(req.query, domain=req.domain)
+  File "D:\Aarakshana AI\backend\app\llm.py", line 46, in generate_paralegal_response
+    sections = search_laws(user_query, domain=domain, top_k=4)
+  File "D:\Aarakshana AI\backend\app\search.py", line 57, in search_laws
+    rows = conn.execute(sql, params).fetchall()
+           ~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: fts5: syntax error near "#"
+INFO:     127.0.0.1:54923 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54923 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54927 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55529 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55529 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54718 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54718 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61257 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61257 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62915 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62915 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49754 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49754 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61195 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61195 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59540 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59540 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59550 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59550 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50161 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50161 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50186 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50186 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50191 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50191 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59487 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59487 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53359 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53359 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53366 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53366 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55104 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55104 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56156 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56156 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62350 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62350 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62396 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62396 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61011 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61011 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54130 - "POST /api/chat HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "D:\Aarakshana AI\backend\app\main.py", line 101, in chat
+    result = generate_paralegal_response(req.query, domain=req.domain)
+  File "D:\Aarakshana AI\backend\app\llm.py", line 46, in generate_paralegal_response
+    sections = search_laws(user_query, domain=domain, top_k=4)
+  File "D:\Aarakshana AI\backend\app\search.py", line 57, in search_laws
+    rows = conn.execute(sql, params).fetchall()
+           ~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: fts5: syntax error near "#"
+INFO:     127.0.0.1:62362 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62362 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53410 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63859 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61837 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61837 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61188 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62629 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62629 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62855 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62855 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65182 - "POST /api/chat HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 1281, in handle
+    await super().handle(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\routing.py", line 280, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\neils\AppData\Roaming\Python\Python314\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "D:\Aarakshana AI\backend\app\main.py", line 101, in chat
+    result = generate_paralegal_response(req.query, domain=req.domain)
+  File "D:\Aarakshana AI\backend\app\llm.py", line 46, in generate_paralegal_response
+    sections = search_laws(user_query, domain=domain, top_k=4)
+  File "D:\Aarakshana AI\backend\app\search.py", line 57, in search_laws
+    rows = conn.execute(sql, params).fetchall()
+           ~~~~~~~~~~~~^^^^^^^^^^^^^
+sqlite3.OperationalError: fts5: syntax error near "#"
+INFO:     127.0.0.1:65186 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65186 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54206 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54206 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52853 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52853 - "GET /v1/models HTTP/1.1" 404 Not Found

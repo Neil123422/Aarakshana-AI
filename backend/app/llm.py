@@ -1,19 +1,26 @@
-"""LLM retrieval loop for Indian Paralegal Assistant."""
+"""
+LLM retrieval loop for Indian Paralegal Assistant.
+Uses raw httpx for transparent data flow.
+"""
 import os
 from pathlib import Path
+import httpx
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).parent.parent / ".env")
-load_dotenv(Path(__file__).parent.parent.parent / ".env")
+# Load env from backend/.env
+env_path = Path(__file__).parent.parent / ".env"
+load_dotenv(env_path)
 
 LLM_API_KEY = os.getenv("LLM_API_KEY", "")
-LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1").rstrip("/")
-LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-4o")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:11434/v1").rstrip("/")
+LLM_MODEL = os.getenv("LLM_MODEL", "llama3.2")
 
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
 from search import search_laws
 
 
-def build_system_prompt(sections: list[dict]) -> str:
+def build_system_prompt(sections):
     lines = [
         "You are an objective Indian Paralegal Assistant.",
         "Answer using ONLY the legal provisions provided below.",
@@ -26,47 +33,57 @@ def build_system_prompt(sections: list[dict]) -> str:
     ]
     for s in sections:
         lines.append(
-            f"\n[{s.get('domain', '').upper()}] {s['act_name']} — Section {s['section_number']} '{s['section_title']}'\n"
+            f"\n[{s['domain'].upper()}] {s['act_name']} — Section {s['section_number']} '{s['section_title']}'\n"
         )
-        content = s.get("content") or ""
-        lines.append(content[:3000])
+        content = s["content"][:3000]
+        lines.append(content)
     return "\n".join(lines)
 
 
 def generate_paralegal_response(user_query: str, domain: str | None = None) -> dict:
+    sections = search_laws(user_query, domain=domain, top_k=4)
+    system_text = build_system_prompt(sections)
+
+    payload = {
+        "model": LLM_MODEL,
+        "messages": [
+            {"role": "system", "content": system_text},
+            {"role": "user", "content": user_query},
+        ],
+        "temperature": 0.2,
+        "max_tokens": 800,
+    }
     try:
-        sections = search_laws(user_query, domain=domain, top_k=4)
-        system_prompt = build_system_prompt(sections)
-        full_prompt = system_prompt + "\n\nUser Query: " + user_query + "\n\nProvide structured paralegal synthesis citing exact sections, with legal disclaimer."
-        import httpx
-        with httpx.Client(timeout=90.0) as client:
-            resp = client.post(
-                f"{LLM_BASE_URL}/chat/completions",
-                headers={"Authorization": f"Bearer {LLM_API_KEY}", "Content-Type": "application/json"},
-                json={
-                    "model": LLM_MODEL,
-                    "messages": [
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_query},
-                    ],
-                    "temperature": 0.3,
-                    "max_tokens": 4096,
-                },
-            )
+        url = f"{LLM_BASE_URL}/chat/completions"
+        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {LLM_API_KEY}"}
+        resp = httpx.post(url, json=payload, headers=headers, timeout=60.0)
         resp.raise_for_status()
         data = resp.json()
-        answer_text = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-        return {"answer": answer_text or "Response synthesized from retrieved Bare Act sections.", "citations": sections}
+        answer = data.get("choices", [{}])[0].get("message", {}).get("content", "No response from LLM.")
     except Exception as e:
-        return {
-            "answer": f"Based on retrieved Bare Act sections (see citations). For informational and paralegal research purposes only; not formal legal counsel. [Note: long-context LLM synthesis may require simplified query.]",
-            "citations": sections if 'sections' in locals() else [],
+        answer = f"LLM call failed: {e}\n(Using retrieved context only — no generated text available.)"
+
+    citations = [
+        {
+            "domain": s["domain"],
+            "act_name": s["act_name"],
+            "section_number": s["section_number"],
+            "section_title": s["section_title"],
+            "content": s["content"],
         }
+        for s in sections
+    ]
+
+    return {"answer": answer, "citations": citations}
 
 
-def stream_paralegal_response(user_query: str, domain: str | None = None):
-    try:
-        result = generate_paralegal_response(user_query, domain=domain)
-        yield f"data: {{\"type\":\"done\",\"answer\":\"{result.get('answer', '')}\"}}\n\n"
-    except Exception as e:
-        yield f"data: {{\"type\":\"error\",\"message\":\"{str(e)}\"}}\n\n"
+def cli_test():
+    result = generate_paralegal_response("What is punishment for theft under BNS?", domain="criminal")
+    print("Answer snippet:", result["answer"][:200])
+    print("Citations:", len(result["citations"]))
+    for c in result["citations"][:3]:
+        print(" -", c["domain"], c["act_name"], "Sec", c["section_number"])
+
+
+if __name__ == "__main__":
+    cli_test()

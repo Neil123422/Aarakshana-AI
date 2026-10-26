@@ -1,578 +1,361 @@
-INFO:     Started server process [38364]
+INFO:     Started server process [29532]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:50534 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50536 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63546 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63546 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64664 - "GET / HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64664 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62002 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62002 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:52289 - "GET / HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:52289 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53544 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53544 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53573 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53573 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58656 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58656 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53753 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53753 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64588 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64588 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64427 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64427 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62715 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62715 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:49743 - "OPTIONS /api/chat/stream HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49743 - "POST /api/chat/stream HTTP/1.1" 200 OK
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        self.scope, self.receive, self.send
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\applications.py", line 1194, in __call__
-    await super().__call__(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\applications.py", line 96, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\telemetry\_asgi.py", line 151, in __call__
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 149, in simple_response
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\routing.py", line 678, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
-    await route.handle(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1330, in handle
-    await super().handle(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\routing.py", line 284, in handle
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 166, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 153, in app
-    await response(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\responses.py", line 278, in __call__
-    async with create_collapsing_task_group() as task_group:
-               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Python314\Lib\contextlib.py", line 235, in __aexit__
-    await self.gen.athrow(value)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_utils.py", line 112, in create_collapsing_task_group
-    raise exc from exc.__cause__ or context
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\anyio\_core\_tasks.py", line 327, in _run_coro
-    retval = await self._coro
-             ^^^^^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\responses.py", line 281, in wrap
-    await func()
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\responses.py", line 255, in stream_response
-    async for chunk in self.body_iterator:
-    ...<2 lines>...
-        await send({"type": "http.response.body", "body": chunk, "more_body": True})
-  File "D:\Aarakshana AI\backend\app\llm.py", line 106, in stream_paralegal_response
-    sections = search_laws(query, domain=domain, top_k=4)
-  File "D:\Aarakshana AI\backend\app\search.py", line 57, in search_laws
-    rows = conn.execute(sql, params).fetchall()
-           ~~~~~~~~~~~~^^^^^^^^^^^^^
-sqlite3.OperationalError: fts5: syntax error near "#"
-INFO:     127.0.0.1:57324 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57324 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:57365 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57379 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57379 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:57387 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57398 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57398 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:57413 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57413 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50446 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50446 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60442 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60442 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60453 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64324 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64324 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64327 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52350 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52361 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52361 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51559 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51559 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64557 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64557 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55402 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55402 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:57260 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57260 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64749 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64749 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64769 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64769 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64792 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64792 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64798 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64798 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55507 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55507 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:49519 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49519 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63310 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63310 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60269 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60269 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64439 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64439 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64480 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64480 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59568 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59568 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63817 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63817 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:57809 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57809 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:57403 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57403 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51970 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51970 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62958 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62958 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64837 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64837 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64846 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64846 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53378 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53378 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:54571 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54571 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:54710 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54710 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:52534 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52541 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52546 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52546 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:52557 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52571 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52571 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:52584 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52584 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59266 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59266 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59291 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59293 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59298 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59298 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60195 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51359 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51371 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51371 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51383 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51383 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59637 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59637 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59649 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59649 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50157 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50157 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50194 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50194 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50207 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50207 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62136 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62136 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51159 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51159 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55750 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55750 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55496 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55496 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55515 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55515 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63191 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63191 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60359 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60359 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60380 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60380 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60431 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60431 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60791 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60791 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60793 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60795 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60809 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60809 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58663 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58663 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63001 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63001 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61891 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61891 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53178 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53178 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61878 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61878 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55316 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55316 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55321 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55321 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63465 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63465 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64514 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64514 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64521 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64521 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60800 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60800 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64587 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64587 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64592 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64592 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64596 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64596 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64602 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64602 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64629 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64629 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64665 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64665 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64669 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64669 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62814 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62814 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62825 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62825 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62829 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62829 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51940 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51940 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53750 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53750 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58884 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58884 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58897 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49311 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49311 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65090 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65090 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57626 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57626 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51150 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51150 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60205 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60205 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51494 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51494 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53421 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53421 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53425 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53425 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51322 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51322 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54829 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54829 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65055 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65055 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55877 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55877 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57511 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57511 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64003 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64003 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55861 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55861 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50353 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50353 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53167 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53167 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53304 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53304 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64170 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64170 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64178 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64178 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52858 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52858 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52865 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52865 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52877 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52877 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57570 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57570 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57577 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57577 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57581 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57581 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60151 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60151 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60159 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60159 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60163 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60163 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60167 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60167 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60171 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60171 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59288 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59288 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53320 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53320 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64287 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64287 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59019 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59019 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63097 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63097 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54635 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54635 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64195 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64195 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61508 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61508 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56184 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56184 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56199 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56199 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60041 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60041 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64399 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64399 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63526 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63526 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62094 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62094 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62098 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62098 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55982 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55982 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55173 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55173 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52797 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52797 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52804 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52804 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52808 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52808 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57772 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57772 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51550 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51550 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65514 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65514 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63747 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63747 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63755 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63755 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49305 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49305 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52421 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52421 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50524 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50524 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55055 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55055 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55059 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55059 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49286 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49286 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49291 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49291 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52126 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52126 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64974 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64974 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64996 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64996 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61533 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61533 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61541 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61541 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61545 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61545 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62024 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62024 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53549 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53549 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64895 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64895 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64899 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64899 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50516 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50516 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50524 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50524 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60679 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60679 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62893 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62893 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59585 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59585 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51627 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51627 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51636 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51636 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51640 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51640 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55164 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55164 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60388 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60388 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50301 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50301 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56252 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56252 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49252 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49252 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51303 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51303 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58433 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58433 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58437 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58437 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58441 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58441 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53507 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53507 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59677 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59677 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59681 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59681 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61598 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61598 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49254 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49254 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57282 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57282 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59687 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59687 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56438 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56438 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54424 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54424 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60695 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60695 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53687 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53687 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56135 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56135 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64937 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64937 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58059 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58059 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61092 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61092 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52893 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52893 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52907 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52907 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49366 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49366 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60448 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60448 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55202 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55202 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52427 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52427 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54897 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54897 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52192 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52192 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51234 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51234 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53621 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53621 - "GET /v1/models HTTP/1.1" 404 Not Found
 INFO:     127.0.0.1:50776 - "GET /health HTTP/1.1" 200 OK
 INFO:     127.0.0.1:50776 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60159 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60162 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60169 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60169 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63699 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63699 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62046 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62046 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60414 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60414 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60505 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60505 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60519 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60519 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51823 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51823 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51844 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51844 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51877 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51877 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51763 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51763 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51768 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56527 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56527 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:56549 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61132 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61132 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:61432 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61432 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:61458 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61458 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60711 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60711 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62417 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62417 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50794 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50794 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65169 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65169 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51985 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51996 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51996 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:61140 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61140 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:61152 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61152 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:61162 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61162 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59867 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59867 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58491 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58491 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55443 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55443 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59125 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59125 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55653 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55653 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65492 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65492 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:63823 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63823 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:49813 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49813 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:49841 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49841 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55348 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55348 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50469 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50469 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50068 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50068 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50685 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50685 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51558 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51558 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60658 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60658 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60012 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60012 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60021 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60021 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60034 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60034 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:49712 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49712 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:55571 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55571 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58492 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58492 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59020 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59020 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59150 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59150 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:65353 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65353 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60730 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60730 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58771 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58771 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51642 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51642 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51755 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51755 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50330 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50330 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50369 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50369 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:61125 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61125 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:60506 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60506 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51872 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51872 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62487 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62487 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62510 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62510 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58443 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58443 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:54199 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54199 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:54308 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54308 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:54337 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54337 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58051 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58051 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64633 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64633 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:54962 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54962 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:52383 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52383 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53360 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53360 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53367 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53367 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51959 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51959 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59245 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59196 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59196 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51984 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51984 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:58760 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58760 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:62476 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62476 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53838 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53838 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59978 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59978 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:53774 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53774 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:57960 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57960 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59276 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59276 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:64836 - "OPTIONS /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64836 - "POST /api/chat HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        self.scope, self.receive, self.send
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\applications.py", line 1194, in __call__
-    await super().__call__(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\applications.py", line 96, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\telemetry\_asgi.py", line 151, in __call__
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 149, in simple_response
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\routing.py", line 678, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
-    await route.handle(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1330, in handle
-    await super().handle(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\routing.py", line 284, in handle
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 166, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 152, in app
-    response = await f(request)
-               ^^^^^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 745, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<3 lines>...
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 374, in run_endpoint_function
-    return await run_in_threadpool(
-           ^^^^^^^^^^^^^^^^^^^^^^^^
-        _run_sync_endpoint, function=dependant.call, arguments=values
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
-    return await anyio.to_thread.run_sync(func)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
-    return await get_async_backend().run_sync_in_worker_thread(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
-    return await future
-           ^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
-    result = context.run(func, *args)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 244, in _run_sync_endpoint
-    return function(**arguments)
-  File "D:\Aarakshana AI\backend\app\main.py", line 101, in chat
-    result = generate_paralegal_response(req.query, domain=req.domain)
-  File "D:\Aarakshana AI\backend\app\llm.py", line 46, in generate_paralegal_response
-    sections = search_laws(user_query, domain=domain, top_k=4)
-  File "D:\Aarakshana AI\backend\app\search.py", line 57, in search_laws
-    rows = conn.execute(sql, params).fetchall()
-           ~~~~~~~~~~~~^^^^^^^^^^^^^
-sqlite3.OperationalError: no such column: citations
-INFO:     127.0.0.1:60228 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60228 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59823 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59823 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:59828 - "POST /api/chat HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59849 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59849 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51560 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51560 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:51568 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51568 - "GET /v1/models HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:50643 - "POST /api/chat HTTP/1.1" 500 Internal Server Error
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        self.scope, self.receive, self.send
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\applications.py", line 1194, in __call__
-    await super().__call__(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\applications.py", line 96, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\telemetry\_asgi.py", line 151, in __call__
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 149, in simple_response
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\routing.py", line 678, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2811, in app
-    await route.handle(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1330, in handle
-    await super().handle(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\routing.py", line 284, in handle
-    await self.app(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 166, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 152, in app
-    response = await f(request)
-               ^^^^^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 745, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<3 lines>...
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 374, in run_endpoint_function
-    return await run_in_threadpool(
-           ^^^^^^^^^^^^^^^^^^^^^^^^
-        _run_sync_endpoint, function=dependant.call, arguments=values
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
-    return await anyio.to_thread.run_sync(func)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
-    return await get_async_backend().run_sync_in_worker_thread(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
-    return await future
-           ^^^^^^^^^^^^
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
-    result = context.run(func, *args)
-  File "D:\Aarakshana AI\backend\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 244, in _run_sync_endpoint
-    return function(**arguments)
-  File "D:\Aarakshana AI\backend\app\main.py", line 101, in chat
-    result = generate_paralegal_response(req.query, domain=req.domain)
-  File "D:\Aarakshana AI\backend\app\llm.py", line 46, in generate_paralegal_response
-    sections = search_laws(user_query, domain=domain, top_k=4)
-  File "D:\Aarakshana AI\backend\app\search.py", line 57, in search_laws
-    rows = conn.execute(sql, params).fetchall()
-           ~~~~~~~~~~~~^^^^^^^^^^^^^
-sqlite3.OperationalError: fts5: syntax error near "#"
-INFO:     127.0.0.1:59484 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59484 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55250 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55250 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64287 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64287 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56252 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56252 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56258 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56258 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62161 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62161 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64196 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64196 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53274 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53274 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49449 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49449 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56489 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56489 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58099 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58099 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56672 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56672 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53314 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53314 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52874 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52874 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55360 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55360 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57465 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57465 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59638 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59638 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59643 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59643 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61363 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61363 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51151 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51151 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51178 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51178 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60266 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60266 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59722 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59722 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56770 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56770 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50899 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50899 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63349 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63349 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53552 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53552 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63868 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63868 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60830 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60830 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58357 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58357 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53629 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53629 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62494 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62505 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62505 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56496 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56496 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56505 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56505 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56510 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56510 - "GET /v1/models HTTP/1.1" 404 Not Found

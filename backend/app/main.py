@@ -14,7 +14,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from db import get_connection, count_sections
-from llm import generate_paralegal_response, stream_paralegal_response
+from llm import generate_paralegal_response
 from pathlib import Path
 
 UPLOAD_DIR = Path(__file__).parent.parent / "data" / "uploads"
@@ -88,13 +88,6 @@ def health():
         return {"status": "ok", "sections_count": total}
     finally:
         conn.close()
-
-@app.post("/api/chat/stream")
-async def chat_stream(req: ChatRequest):
-    return StreamingResponse(
-        stream_paralegal_response(req.query, domain=req.domain),
-        media_type="text/event-stream",
-    )
 
 @app.post("/api/chat")
 def chat(req: ChatRequest):

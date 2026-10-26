@@ -17,7 +17,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from db import count_sections, get_connection
-from llm import generate_paralegal_response
+from llm import LLMProviderError, generate_paralegal_response
 from parser import parse_file
 
 UPLOAD_DIR = Path(__file__).parent.parent / "data" / "uploads"
@@ -157,6 +157,8 @@ def chat(req: ChatRequest):
         )
     except HTTPException:
         raise
+    except LLMProviderError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Paralegal synthesis error: {exc}") from exc
 

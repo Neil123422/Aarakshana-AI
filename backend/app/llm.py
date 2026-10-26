@@ -21,6 +21,11 @@ LLM_MODEL = os.getenv("LLM_MODEL", "llama3.2")
 sys.path.insert(0, str(Path(__file__).parent))
 from search import search_laws
 
+
+class LLMProviderError(RuntimeError):
+    """Raised when the configured provider cannot return a model answer."""
+
+
 ATTACHMENT_CONTEXT_LIMIT = 18000
 QUESTION_STOPWORDS = {
     "about", "after", "again", "also", "and", "are", "can", "does", "for", "from",
@@ -139,7 +144,8 @@ def generate_paralegal_response(
             {"role": "user", "content": user_content},
         ],
         "temperature": 0.2,
-        "max_tokens": 800,
+        # Keep within the live provider's demonstrated affordable completion budget.
+        "max_tokens": 512,
     }
     try:
         url = f"{LLM_BASE_URL}/chat/completions"
@@ -147,9 +153,36 @@ def generate_paralegal_response(
         response = httpx.post(url, json=payload, headers=headers, timeout=60.0)
         response.raise_for_status()
         data = response.json()
-        answer = data.get("choices", [{}])[0].get("message", {}).get("content", "No response from LLM.")
-    except Exception as exc:
-        answer = f"LLM call failed: {exc}\n(Using retrieved context only — no generated text available.)"
+        choices = data.get("choices") if isinstance(data, dict) else None
+        if not isinstance(choices, list) or not choices:
+            raise LLMProviderError("The language-model provider returned no answer.")
+        message = choices[0].get("message") if isinstance(choices[0], dict) else None
+        content = message.get("content") if isinstance(message, dict) else None
+        if isinstance(content, list):
+            answer = "\n".join(
+                item.get("text", "")
+                for item in content
+                if isinstance(item, dict) and item.get("type") == "text"
+            )
+        else:
+            answer = content if isinstance(content, str) else ""
+        if not answer.strip():
+            raise LLMProviderError("The language-model provider returned an empty answer.")
+    except httpx.HTTPStatusError as exc:
+        # Do not return provider failures as a plausible-looking 200/answer.
+        if exc.response.status_code == 402:
+            raise LLMProviderError(
+                "The language-model provider has insufficient credits for this response budget; reduce max_tokens or add credits."
+            ) from exc
+        if exc.response.status_code == 404:
+            raise LLMProviderError("The configured model or endpoint is not available at the provider.") from exc
+        raise LLMProviderError(
+            f"The language-model provider returned HTTP {exc.response.status_code}."
+        ) from exc
+    except httpx.RequestError as exc:
+        raise LLMProviderError("Could not reach the configured language-model provider.") from exc
+    except (ValueError, KeyError, IndexError, TypeError) as exc:
+        raise LLMProviderError("The language-model provider returned an invalid response.") from exc
 
     citations = [
         {

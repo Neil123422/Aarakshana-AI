@@ -1,0 +1,6 @@
+﻿Aarakshana document-reading verification memo.
+Project code: RIVER-TEST-8291.
+The invoice reference is AR-8291-S.
+The claimed reimbursement amount is INR 38,417.
+The recorded meeting date is 14 September 2026.
+This is a synthetic test memo made only to verify upload extraction and document-grounded answers.

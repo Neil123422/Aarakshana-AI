@@ -1,27 +1,30 @@
-"""Parse uploaded docs (PDF, DOCX, TXT/MD) into plain text."""
-import os
+"""Extract searchable text from supported legal-document uploads."""
 from pathlib import Path
-from pypdf import PdfReader
-from docx import Document
+from zipfile import ZipFile
+from xml.etree import ElementTree
 
-UPLOAD_DIR = Path(__file__).parent.parent / "data" / "uploads"
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 def parse_file(file_path: Path) -> str:
-    try:
-        ext = file_path.suffix.lower()
-        if ext == ".pdf":
-            reader = PdfReader(str(file_path))
-            return "\n".join(page.extract_text() or "" for page in reader.pages)
-        elif ext == ".docx":
-            doc = Document(str(file_path))
-            return "\n".join(p.text for p in doc.paragraphs)
-        elif ext in (".txt", ".md"):
-            return file_path.read_text(encoding="utf-8", errors="ignore")
-        else:
-            return file_path.read_text(encoding="utf-8", errors="ignore")
-    except Exception as e:
-        try:
-            return file_path.read_text(encoding="utf-8", errors="ignore")
-        except:
-            return f"[Unreadable file: {file_path.name}]"
+    """Parse documents without silently treating binary files as UTF-8 text."""
+    suffix = file_path.suffix.lower()
+    if suffix == ".pdf":
+        import pymupdf
+
+        with pymupdf.open(str(file_path)) as document:
+            return "\n".join(page.get_text("text") or "" for page in document)
+
+    if suffix == ".docx":
+        with ZipFile(file_path) as archive:
+            root = ElementTree.fromstring(archive.read("word/document.xml"))
+        namespace = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+        paragraphs = []
+        for paragraph in root.iter(f"{namespace}p"):
+            text = "".join(node.text or "" for node in paragraph.iter(f"{namespace}t"))
+            if text.strip():
+                paragraphs.append(text)
+        return "\n".join(paragraphs)
+
+    if suffix in {".txt", ".md"}:
+        return file_path.read_text(encoding="utf-8-sig", errors="replace")
+
+    raise ValueError(f"Unsupported document type: {suffix or 'unknown'}")

@@ -2,6 +2,7 @@
 LLM retrieval loop for Indian Paralegal Assistant.
 Uses raw httpx for transparent data flow.
 """
+import logging
 import os
 import re
 import sys
@@ -26,7 +27,109 @@ class LLMProviderError(RuntimeError):
     """Raised when the configured provider cannot return a model answer."""
 
 
+logger = logging.getLogger(__name__)
 ATTACHMENT_CONTEXT_LIMIT = 18000
+MAX_MODEL_ATTEMPTS = 3
+
+
+def _model_list(env_name: str, default: str = "") -> list[str]:
+    return list(dict.fromkeys(
+        model.strip() for model in os.getenv(env_name, default).split(",") if model.strip()
+    ))
+
+
+def _model_namespace(model: str) -> str | None:
+    return model.split("/", 1)[0].casefold() if "/" in model else None
+
+
+def _models_for_request(has_images: bool = False) -> list[str]:
+    """Limit model failover to configured, same-publisher choices."""
+    fallbacks = _model_list(
+        "LLM_IMAGE_FALLBACK_MODELS" if has_images else "LLM_FALLBACK_MODELS",
+        os.getenv("LLM_FALLBACK_MODELS", "") if has_images else "",
+    )
+    candidates = [LLM_MODEL] + [model for model in fallbacks if model != LLM_MODEL]
+    if "openrouter.ai" in LLM_BASE_URL.casefold():
+        primary_namespace = _model_namespace(LLM_MODEL)
+        if not primary_namespace:
+            raise LLMProviderError(
+                "OpenRouter fallback requires a namespaced primary model ID; no request was sent."
+            )
+        if any(_model_namespace(model) != primary_namespace for model in candidates[1:]):
+            raise LLMProviderError(
+                "Fallback models must use the same model publisher as the primary; "
+                "cross-publisher document/image routing is disabled. No request was sent."
+            )
+    try:
+        limit = int(os.getenv("LLM_MAX_MODEL_ATTEMPTS", str(MAX_MODEL_ATTEMPTS)))
+    except ValueError:
+        limit = MAX_MODEL_ATTEMPTS
+    return candidates[:max(1, min(MAX_MODEL_ATTEMPTS, limit))]
+
+
+def _provider_error_parts(response: httpx.Response) -> tuple[str, dict]:
+    try:
+        body = response.json()
+    except ValueError:
+        return "", {}
+    if not isinstance(body, dict):
+        return "", {}
+    error = body.get("error") if isinstance(body.get("error"), dict) else {}
+    message = error.get("message") or body.get("detail") or ""
+    metadata = error.get("metadata") if isinstance(error.get("metadata"), dict) else {}
+    return str(message)[:500], metadata
+
+
+def _is_shared_rate_limit(response: httpx.Response, message: str, metadata: dict) -> bool:
+    if metadata.get("provider_code"):
+        return False
+    if metadata.get("error_type") == "rate_limit_exceeded":
+        return True
+    if any(name in response.headers for name in (
+        "x-ratelimit-limit", "x-ratelimit-remaining", "x-ratelimit-reset"
+    )):
+        return True
+    lower = message.casefold()
+    return any(term in lower for term in (
+        "account-wide", "account limit", "api key limit", "free model limit",
+        "daily limit", "global rate", "ddos protection",
+    ))
+
+
+def _terminal_provider_error(response: httpx.Response, message: str, metadata: dict) -> str:
+    status = response.status_code
+    retry_after = response.headers.get("Retry-After")
+    suffix = f" Retry after {retry_after} seconds." if retry_after else ""
+    if status == 401:
+        return "OpenRouter rejected the configured API key (HTTP 401). Check the key; no fallback model was tried."
+    if status == 402:
+        source = metadata.get("limit_source")
+        if source == "openrouter_in_flight_budget":
+            return "OpenRouter's shared in-flight credit budget is temporarily full; model switching will not help." + suffix
+        if source == "openrouter_key_limit":
+            return "The OpenRouter API key's credit limit is exhausted; switching models will not help. No fallback was tried."
+        if source == "openrouter_credits":
+            return "The OpenRouter account has insufficient available credits; switching models will not help. No fallback was tried."
+        return "OpenRouter rejected the request for a shared account/key credit or budget limit (HTTP 402); model switching cannot fix this, so no fallback was tried."
+    if status == 403:
+        source = metadata.get("limit_source")
+        if source:
+            return f"OpenRouter blocked this request under the shared {source} budget/permission (HTTP 403); no model fallback was tried."
+        return "OpenRouter blocked this request for permissions, budget, or policy reasons (HTTP 403); no model fallback was tried."
+    if status == 429 and _is_shared_rate_limit(response, message, metadata):
+        return "OpenRouter's shared platform/account rate limit is active; switching models may not help, so no fallback was tried." + suffix
+    if status == 404:
+        return "The configured OpenRouter endpoint returned HTTP 404; verify the API base URL and chat-completions path."
+    return f"The language-model provider returned HTTP {status}; no compatible fallback succeeded."
+
+
+def _model_not_found(message: str) -> bool:
+    lower = message.casefold()
+    return "model" in lower and any(term in lower for term in (
+        "not found", "no endpoints", "unavailable", "does not exist"
+    ))
+
+
 QUESTION_STOPWORDS = {
     "about", "after", "again", "also", "and", "are", "can", "does", "for", "from",
     "how", "into", "its", "not", "the", "this", "that", "them", "their", "what",
@@ -122,7 +225,7 @@ def generate_paralegal_response(
     documents: list[dict] | None = None,
     images: list[dict] | None = None,
 ) -> dict:
-    # Statute retrieval uses the question only; uploads remain a separate, labeled context.
+    # Keep uploads in the same prompt context on every configured model attempt.
     sections = search_laws(user_query, domain=domain, top_k=4)
     document_context = _document_excerpts(documents or [], user_query)
     system_text = build_system_prompt(sections, document_context)
@@ -137,26 +240,80 @@ def generate_paralegal_response(
                 "image_url": {"url": image["data_url"]},
             })
 
-    payload = {
-        "model": LLM_MODEL,
-        "messages": [
-            {"role": "system", "content": system_text},
-            {"role": "user", "content": user_content},
-        ],
+    model_chain = _models_for_request(has_images=bool(images))
+    messages = [
+        {"role": "system", "content": system_text},
+        {"role": "user", "content": user_content},
+    ]
+    base_payload = {
+        "messages": messages,
         "temperature": 0.2,
-        # Keep within the live provider's demonstrated affordable completion budget.
         "max_tokens": 512,
     }
-    try:
-        url = f"{LLM_BASE_URL}/chat/completions"
-        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {LLM_API_KEY}"}
-        response = httpx.post(url, json=payload, headers=headers, timeout=60.0)
-        response.raise_for_status()
-        data = response.json()
+    if "openrouter.ai" in LLM_BASE_URL.casefold():
+        # Keep document and image routing within the primary model's publisher.
+        base_payload["provider"] = {
+            "only": [_model_namespace(LLM_MODEL)],
+            "allow_fallbacks": False,
+        }
+
+    url = f"{LLM_BASE_URL}/chat/completions"
+    headers = {"Content-Type": "application/json", "Authorization": f"Bearer {LLM_API_KEY}"}
+    failures: list[str] = []
+    answer = ""
+    used_model = ""
+    fallback_used = False
+    for index, model in enumerate(model_chain):
+        payload = {**base_payload, "model": model}
+        logger.info(
+            "LLM attempt %d/%d model=%s documents=%d images=%d",
+            index + 1, len(model_chain), model, len(documents or []), len(images or []),
+        )
+        try:
+            response = httpx.post(url, json=payload, headers=headers, timeout=60.0)
+        except httpx.ConnectTimeout:
+            failures.append(f"{model}: connection timeout")
+            if index + 1 < len(model_chain):
+                continue
+            break
+        except httpx.ReadTimeout as exc:
+            # The provider may have completed and charged after a read timeout.
+            raise LLMProviderError(
+                "The provider response timed out after submission; no automatic retry was made "
+                "to avoid duplicate charges. Check provider status, then retry manually."
+            ) from exc
+        except httpx.RequestError as exc:
+            raise LLMProviderError(
+                "Could not reach the configured provider endpoint; model fallback cannot fix a shared connection failure."
+            ) from exc
+
+        if response.status_code >= 400:
+            provider_message, metadata = _provider_error_parts(response)
+            status = response.status_code
+            if status in {401, 402, 403} or (
+                status == 429 and _is_shared_rate_limit(response, provider_message, metadata)
+            ):
+                raise LLMProviderError(_terminal_provider_error(response, provider_message, metadata))
+            if status == 404 and not _model_not_found(provider_message):
+                raise LLMProviderError(_terminal_provider_error(response, provider_message, metadata))
+
+            retryable = status in {408, 429, 500, 502, 503, 504} or (
+                status == 404 and _model_not_found(provider_message)
+            )
+            if retryable:
+                failures.append(f"{model}: HTTP {status}")
+                logger.warning("LLM model %s failed with HTTP %d", model, status)
+                if index + 1 < len(model_chain):
+                    continue
+                break
+            raise LLMProviderError(_terminal_provider_error(response, provider_message, metadata))
+
+        try:
+            data = response.json()
+        except ValueError:
+            data = None
         choices = data.get("choices") if isinstance(data, dict) else None
-        if not isinstance(choices, list) or not choices:
-            raise LLMProviderError("The language-model provider returned no answer.")
-        message = choices[0].get("message") if isinstance(choices[0], dict) else None
+        message = choices[0].get("message") if isinstance(choices, list) and choices and isinstance(choices[0], dict) else None
         content = message.get("content") if isinstance(message, dict) else None
         if isinstance(content, list):
             answer = "\n".join(
@@ -167,22 +324,22 @@ def generate_paralegal_response(
         else:
             answer = content if isinstance(content, str) else ""
         if not answer.strip():
-            raise LLMProviderError("The language-model provider returned an empty answer.")
-    except httpx.HTTPStatusError as exc:
-        # Do not return provider failures as a plausible-looking 200/answer.
-        if exc.response.status_code == 402:
-            raise LLMProviderError(
-                "The language-model provider has insufficient credits for this response budget; reduce max_tokens or add credits."
-            ) from exc
-        if exc.response.status_code == 404:
-            raise LLMProviderError("The configured model or endpoint is not available at the provider.") from exc
+            failures.append(f"{model}: empty response")
+            logger.warning("LLM model %s returned an empty response", model)
+            answer = ""
+            if index + 1 < len(model_chain):
+                continue
+            break
+        used_model = data.get("model") if isinstance(data.get("model"), str) else model
+        fallback_used = index > 0
+        break
+
+    if not answer.strip():
+        attempts = "; ".join(failures) or "no configured model attempts"
         raise LLMProviderError(
-            f"The language-model provider returned HTTP {exc.response.status_code}."
-        ) from exc
-    except httpx.RequestError as exc:
-        raise LLMProviderError("Could not reach the configured language-model provider.") from exc
-    except (ValueError, KeyError, IndexError, TypeError) as exc:
-        raise LLMProviderError("The language-model provider returned an invalid response.") from exc
+            f"No configured model returned an answer ({attempts}). No answer was generated; "
+            "check model availability/rate limits or the fallback-model configuration."
+        )
 
     citations = [
         {
@@ -194,7 +351,12 @@ def generate_paralegal_response(
         }
         for section in sections
     ]
-    return {"answer": answer, "citations": citations}
+    return {
+        "answer": answer,
+        "citations": citations,
+        "model": used_model,
+        "fallback_used": fallback_used,
+    }
 
 
 def cli_test():

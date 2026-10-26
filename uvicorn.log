@@ -359,3 +359,5 @@ INFO:     127.0.0.1:56505 - "GET /health HTTP/1.1" 200 OK
 INFO:     127.0.0.1:56505 - "GET /v1/models HTTP/1.1" 404 Not Found
 INFO:     127.0.0.1:56510 - "GET /health HTTP/1.1" 200 OK
 INFO:     127.0.0.1:56510 - "GET /v1/models HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51075 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51075 - "GET /v1/models HTTP/1.1" 404 Not Found

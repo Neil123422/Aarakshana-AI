@@ -13,11 +13,16 @@ from dotenv import load_dotenv
 
 # Load env from backend/.env
 env_path = Path(__file__).parent.parent / ".env"
-load_dotenv(env_path)
+load_dotenv(env_path, override=True)
 
-LLM_API_KEY = os.getenv("LLM_API_KEY", "")
-LLM_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:11434/v1").rstrip("/")
-LLM_MODEL = os.getenv("LLM_MODEL", "llama3.2")
+# Provider-specific aliases make switching gateways explicit while preserving
+# the generic LLM_* configuration used by OpenRouter, Ollama, and other APIs.
+LLM_API_KEY = os.getenv("OMNIROUTE_API_KEY") or os.getenv("LLM_API_KEY", "")
+LLM_BASE_URL = (
+    os.getenv("OMNIROUTE_BASE_URL")
+    or os.getenv("LLM_BASE_URL", "http://localhost:11434/v1")
+).rstrip("/")
+LLM_MODEL = os.getenv("OMNIROUTE_MODEL") or os.getenv("LLM_MODEL", "llama3.2")
 
 sys.path.insert(0, str(Path(__file__).parent))
 from search import search_laws
@@ -27,8 +32,35 @@ class LLMProviderError(RuntimeError):
     """Raised when the configured provider cannot return a model answer."""
 
 
+_CASUAL_REPLIES = {
+    "hi": "Hi! I'm Aarakshana, your Indian legal research assistant. What would you like help with?",
+    "hello": "Hello! I'm Aarakshana, your Indian legal research assistant. What would you like help with?",
+    "hey": "Hey! I'm Aarakshana, your Indian legal research assistant. What would you like help with?",
+    "hi there": "Hi! I'm Aarakshana, your Indian legal research assistant. What would you like help with?",
+    "hello there": "Hello! I'm Aarakshana, your Indian legal research assistant. What would you like help with?",
+    "hey there": "Hey! I'm Aarakshana, your Indian legal research assistant. What would you like help with?",
+    "good morning": "Good morning! What Indian legal question can I help you research?",
+    "good afternoon": "Good afternoon! What Indian legal question can I help you research?",
+    "good evening": "Good evening! What Indian legal question can I help you research?",
+    "how are you": "I'm ready to help with Indian legal research. What would you like to look into?",
+    "how are you doing": "I'm ready to help with Indian legal research. What would you like to look into?",
+    "how s it going": "I'm ready to help with Indian legal research. What would you like to look into?",
+    "what s up": "I'm here and ready to help with Indian legal research. What can I look into for you?",
+    "thanks": "You're welcome! I'm here whenever you'd like help with Indian legal research.",
+    "thank you": "You're welcome! I'm here whenever you'd like help with Indian legal research.",
+    "bye": "Take care! I'm here whenever you need help with Indian legal research.",
+    "goodbye": "Take care! I'm here whenever you need help with Indian legal research.",
+}
+
+
+def _casual_reply(query: str) -> str | None:
+    """Match only standalone pleasantries; mixed questions remain in legal RAG."""
+    normalized = " ".join(re.findall(r"\w+", query.casefold()))
+    return _CASUAL_REPLIES.get(normalized)
+
+
 logger = logging.getLogger(__name__)
-ATTACHMENT_CONTEXT_LIMIT = 18000
+ATTACHMENT_CONTEXT_LIMIT = 18000  # Excerpt cap: why? Avoid cutting legal text in half; keeps context transparent.
 MAX_MODEL_ATTEMPTS = 3
 
 
@@ -48,6 +80,8 @@ def _models_for_request(has_images: bool = False) -> list[str]:
         "LLM_IMAGE_FALLBACK_MODELS" if has_images else "LLM_FALLBACK_MODELS",
         os.getenv("LLM_FALLBACK_MODELS", "") if has_images else "",
     )
+    if "localhost:20128" in LLM_BASE_URL.casefold():
+        fallbacks = _model_list("OMNIROUTE_FREE_MODELS") + fallbacks
     candidates = [LLM_MODEL] + [model for model in fallbacks if model != LLM_MODEL]
     if "openrouter.ai" in LLM_BASE_URL.casefold():
         primary_namespace = _model_namespace(LLM_MODEL)
@@ -225,6 +259,17 @@ def generate_paralegal_response(
     documents: list[dict] | None = None,
     images: list[dict] | None = None,
 ) -> dict:
+    # A standalone greeting needs no legal retrieval or provider call. Never
+    # shortcut a turn carrying an upload, or a greeting followed by a question.
+    if not documents and not images:
+        casual_answer = _casual_reply(user_query)
+        if casual_answer:
+            return {
+                "answer": casual_answer,
+                "citations": [],
+                "response_type": "casual",
+            }
+
     # Keep uploads in the same prompt context on every configured model attempt.
     sections = search_laws(user_query, domain=domain, top_k=4)
     document_context = _document_excerpts(documents or [], user_query)
@@ -245,10 +290,12 @@ def generate_paralegal_response(
         {"role": "system", "content": system_text},
         {"role": "user", "content": user_content},
     ]
+    # Domain-based queries use BM25 retrieval first; synthesis can be shorter.
+    # This cuts perceived latency for users who don't cite verbatim sections.
     base_payload = {
         "messages": messages,
         "temperature": 0.2,
-        "max_tokens": 512,
+        "max_tokens": 1024 if domain else 2048,
     }
     if "openrouter.ai" in LLM_BASE_URL.casefold():
         # Keep document and image routing within the primary model's publisher.
@@ -356,6 +403,7 @@ def generate_paralegal_response(
         "citations": citations,
         "model": used_model,
         "fallback_used": fallback_used,
+        "response_type": "legal",
     }
 
 

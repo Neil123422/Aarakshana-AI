@@ -11,6 +11,23 @@ import llm
 
 
 class ModelFallbackTests(unittest.TestCase):
+    def setUp(self):
+        # Keep mocked expectations stable regardless of the user's current .env.
+        env = patch.dict("os.environ", {
+            "LLM_FALLBACK_MODELS": "anthropic/claude-sonnet-5",
+            "LLM_IMAGE_FALLBACK_MODELS": "anthropic/claude-sonnet-5",
+            "LLM_MAX_MODEL_ATTEMPTS": "3",
+        })
+        env.start()
+        self.addCleanup(env.stop)
+        config = patch.multiple(
+            llm,
+            LLM_BASE_URL="https://openrouter.ai/api/v1",
+            LLM_MODEL="anthropic/claude-sonnet-5.5",
+        )
+        config.start()
+        self.addCleanup(config.stop)
+
     def response(self, status, body, headers=None):
         return httpx.Response(status, json=body, headers=headers or {})
 
